@@ -4,14 +4,14 @@
       <router-link to="/" tag="div" class="header-content__left">
         <img
           src="http://attractor-1.oss-cn-hangzhou.aliyuncs.com/Aurora/web/Line/fantan/logo.png"
-        />
+        >
         <span>att后台管理系统</span>
       </router-link>
       <div class="header-content__right">
         <img
           class="avator"
           src="http://attractor-1.oss-cn-hangzhou.aliyuncs.com/Aurora/web/Line/fantan/logo.png"
-        />
+        >
         <a-dropdown v-model="visible">
           <span class="ant-dropdown-link" @click="e => e.preventDefault()">用户名</span>
           <a-menu slot="overlay" @click="handleMenuClick">
@@ -31,7 +31,7 @@
 export default {
   name: 'Header',
   props: {},
-  data () {
+  data() {
     return {
       visible: false
     }
@@ -39,7 +39,7 @@ export default {
   computed: {
   },
   methods: {
-    handleMenuClick (e) {
+    handleMenuClick(e) {
       const _self = this
       switch (e.key) {
         case '1':

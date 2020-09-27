@@ -32,12 +32,12 @@ const router = new VueRouter({
 
 // Avoided redundant navigation to current location: "/".
 const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push (location) {
+VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
-export function resetRouter () {
+export function resetRouter() {
   const newRouter = router
   router.matcher = newRouter.matcher // reset router
 }

@@ -19,7 +19,7 @@ import AppMain from './components/appMain'
 import Breadcrumb from './components/breadcrumb'
 import resizeMixin from './mixin/resizeMixin'
 export default {
-  name: 'layout',
+  name: 'Layout',
   components: {
     Header,
     SideBar,
@@ -27,13 +27,13 @@ export default {
     Breadcrumb
   },
   mixins: [resizeMixin],
-  data () {
+  data() {
     return {
     }
   },
 
   watch: {},
-  created () {
+  created() {
 
   },
   methods: {

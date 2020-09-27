@@ -1,73 +1,61 @@
 <template>
-    <a-layout-sider width="200" style="background: #fff">
-      <a-menu
-        mode="inline"
-        :default-selected-keys="['1']"
-        :default-open-keys="['sub1']"
-        :style="{ height: '100%', borderRight: 0 }"
-      >
-        <a-sub-menu v-for="(item, i) in menuRoutes" :key="i" >
-          <span slot="title">{{item.meta.title}}</span>
-          <template v-if="item.children">
-            <a-menu-item v-for="(subItem, subIndex) in item.children" :key="subIndex">
-              <span @click="toPage(subItem)"><a-icon :type="subItem.meta.icon" />{{subItem.meta.title}}</span>
-            </a-menu-item>
-          </template>
-        </a-sub-menu>
-      </a-menu>
-    </a-layout-sider>
-    <!-- <a-layout-sider class="sideBar"> -->
-      <!-- 项目菜单为二级 -->
-      <!-- <div
-        v-for="(item, i) in menuRoutes"
-        :key="i"
-        :class="item.isMenu ? 'parentMenu validMenu' : 'parentMenu'"
-      >
-        <template class="parentMenu-content" v-if="item.isMenu"> -->
-          <!-- <i :class="'iconfont ' + item.meta.icon"></i> -->
-          <!-- <span class="parentMenu-content__title">{{ item.meta.title }}</span>
-        </template>
-        <div
-          v-if="item.children && item.children.length > 0"
-          class="childrenMenu"
-        >
-          <div
-            v-for="(itemChildren, j) in item.children"
-            :key="j"
-            class="childrenMenu-content"
-          >
-            <template v-if="itemChildren.isMenu"> -->
-              <!-- <a-icon
-                :type="temChildren.meta.icon"
-                :style="
-                  isCurrent(itemChildren.path)
-                    ? 'color: #1d76f1;'
-                    : 'color: #333333;'
-                "
-              /> -->
-              <!-- <router-link
-                :to="itemChildren.path"
-                :class="{
-                  'childrenMenu-content__title': true,
-                  active: isCurrent(itemChildren.path)
-                }"
-                tag="span"
-                >{{ itemChildren.meta.title }}</router-link
-              >
-            </template> -->
-          <!-- </div>
-        </div>
-      </div>
-    </a-layout-sider> -->
+  <a-layout-sider width="200" style="background: #fff">
+    <a-menu
+      mode="inline"
+      :default-selected-keys="['1']"
+      :style="{ height: '100%', borderRight: 0 }"
+    >
+      <template v-for="item in menuRoutes">
+        <a-menu-item v-if="!item.children" :key="item.path">
+          <router-link :to="item.path">
+            {{ item.meta.title }}
+          </router-link>
+        </a-menu-item>
+        <sub-menu v-else :key="item.path" :menu-info="item" />
+      </template>
+    </a-menu>
+  </a-layout-sider>
 </template>
 <script>
 import layoutMixin from '../mixin/layoutMixin'
+import { Menu } from 'ant-design-vue'
+const SubMenu = {
+  template: `
+      <a-sub-menu :key="menuInfo.path" v-bind="$props" v-on="$listeners">
+        <span slot="title">
+          <a-icon :type="menuInfo.meta.icon" /><span>{{ menuInfo.meta.title }}</span>
+        </span>
+        <template v-for="item in menuInfo.children">
+          <a-menu-item v-if="!item.children" :key="item.path">
+            <router-link :to="item.path">
+              <a-icon :type="item.meta.icon" />
+              <span>{{ item.meta.title }}</span>
+            </router-link>
+          </a-menu-item>
+          <sub-menu v-else :key="item.path" :menu-info="item" />
+        </template>
+      </a-sub-menu>
+    `,
+  name: 'SubMenu',
+  // must add isSubMenu: true
+  isSubMenu: true,
+  props: {
+    ...Menu.SubMenu.props,
+    // Cannot overlap with properties within Menu.SubMenu.props
+    menuInfo: {
+      type: Object,
+      default: () => ({})
+    }
+  }
+}
 export default {
-  name: 'sideBar',
-  components: {},
+  name: 'SideBar',
+  components: {
+    'sub-menu': SubMenu
+  },
   mixins: [layoutMixin],
   props: {},
-  data () {
+  data() {
     return {
       currentRoute: '',
       menuRoutes: []
@@ -75,27 +63,22 @@ export default {
   },
   watch: {
     $route: {
-      handler (newVal) {
+      handler(newVal) {
         this.currentRoute = newVal.path
       },
       immediate: true
     },
     routes: {
-      handler (newVal) {},
+      handler(newVal) {},
       immediate: true,
       deep: true
     }
   },
-  created () {
+  created() {
     this.menuRoutes = this.init(JSON.parse(JSON.stringify(this.routes)))
-    console.log('得到的路由', this.menuRoutes)
   },
   methods: {
-    isCurrent (path) {
-      // 路由高亮
-      return this.currentRoute.indexOf(path) !== -1
-    },
-    init (data) {
+    init(data) {
       // 二级菜单筛选
       return data.filter(item => {
         if (item.children) {
@@ -105,15 +88,6 @@ export default {
         }
         return item.isMenu
       })
-    },
-    toPage (item) {
-      console.log('更改')
-      const toPath = item.redirect || item.path
-      this.$router.push({
-        path: toPath
-      })
-    },
-    hideMenu () {
     }
   }
 }
@@ -124,7 +98,10 @@ export default {
   overflow-y: hidden;
 }
 .ant-layout-sider {
+  max-width: 210px!important;
+  width: 210px!important;
   background: #fff!important;
+  flex: 0 0 210px!important;
   border-radius: 12px;
 }
 .menuSide {

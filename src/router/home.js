@@ -8,7 +8,8 @@ export default [
     component: layout,
     isMenu: true,
     meta: {
-      title: '首页'
+      title: 'home',
+      icon: 'appstore'
     },
     children: [
       {
@@ -18,9 +19,22 @@ export default [
         component: () =>
           import(/* webpackChunkName: "home" */ '@/views/home/index'),
         meta: {
-          title: '子页面',
-          icon: 'appstore'
-        }
+          title: 'menu1',
+          icon: 'pie-chart'
+        },
+        children: [
+          {
+            path: '/home/index/subMenu',
+            name: 'Subpage3',
+            isMenu: true,
+            component: () =>
+              import(/* webpackChunkName: "home" */ '@/views/home/index3'),
+            meta: {
+              title: 'menu1-subMenu',
+              icon: 'database'
+            }
+          }
+        ]
       },
       {
         path: '/home/index2',
@@ -29,7 +43,7 @@ export default [
         component: () =>
           import(/* webpackChunkName: "home" */ '@/views/home/index2'),
         meta: {
-          title: '子页面2',
+          title: 'menu2',
           icon: 'user'
         }
       }

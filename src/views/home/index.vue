@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: 'subpage',
+  name: 'Subpage',
   components: {
   }
 }

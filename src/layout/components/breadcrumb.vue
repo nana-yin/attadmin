@@ -1,12 +1,12 @@
 <template>
   <div class="titleNav">
-    <div class="titleNav-left">{{this.$route.meta.title}}</div>
+    <div class="titleNav-left">{{ this.$route.meta.title }}</div>
     <a-breadcrumb class="breadcrumb" separator=">">
       <a-breadcrumb-item v-for="(item, i) in breadList" :key="i">
         <router-link
           v-if="i !== 0 && i < breadList.length - 1"
           :to="item.redirect || item.path"
-          >{{ item.meta.title }}</router-link>
+        >{{ item.meta.title }}</router-link>
         <template v-else>
           {{ item.meta.title }}
         </template>
@@ -17,28 +17,28 @@
 <script>
 import layoutMixin from '../mixin/layoutMixin'
 export default {
-  name: 'breadcrumb',
+  name: 'Breadcrumb',
   mixins: [layoutMixin],
   props: {},
-  data () {
+  data() {
     return {
       breadList: []
     }
   },
+  computed: {},
   watch: {
     $route: {
-      handler (newVal) {
+      handler(newVal) {
         this.getBreadcrumb()
       },
       immediate: true
     }
   },
-  computed: {},
-  created () {
+  created() {
     this.getBreadcrumb()
   },
   methods: {
-    getBreadcrumb () {
+    getBreadcrumb() {
       this.breadList = []
       const path = this.$route.path
       const indexof = path.lastIndexOf('/')
@@ -49,12 +49,12 @@ export default {
         this.breadList.push(item)
       })
     },
-    getChildren (targetPath, path, result = {}) {
+    getChildren(targetPath, path, result = {}) {
       for (let i = 0; i < path.length; i++) {
         this.getChildren(targetPath, path[i].children || [])
       }
     },
-    getParent (routeName, routes, path = []) {
+    getParent(routeName, routes, path = []) {
       for (let i = 0; i < routes.length; i++) {
         const tempPath = path.concat()
         tempPath.push(routes[i].name)
