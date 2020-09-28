@@ -12,12 +12,13 @@
           class="avator"
           src="http://attractor-1.oss-cn-hangzhou.aliyuncs.com/Aurora/web/Line/fantan/logo.png"
         >
-        <a-dropdown v-model="visible">
+        <a-dropdown v-model="visible" :trigger="['click']">
           <span class="ant-dropdown-link" @click="e => e.preventDefault()">用户名</span>
           <a-menu slot="overlay" @click="handleMenuClick">
             <a-menu-item key="1">
               <span>用户中心</span>
             </a-menu-item>
+            <a-menu-divider />
             <a-menu-item key="2">
               <span>退出</span>
             </a-menu-item>
@@ -92,6 +93,9 @@ export default {
       align-items: center;
       color: #707070;
       line-height: 19px;
+      .ant-dropdown-link {
+        cursor: pointer;
+      }
       .avator {
         width: 50px;
         height: 50px;

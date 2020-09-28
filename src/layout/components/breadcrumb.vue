@@ -8,7 +8,9 @@
           :to="item.redirect || item.path"
         >{{ item.meta.title }}</router-link>
         <template v-else>
-          {{ item.meta.title }}
+          <span :style="i === breadList.length - 1 ? 'color: #1d76f1;' : ''">
+            {{ item.meta.title }}
+          </span>
         </template>
       </a-breadcrumb-item>
     </a-breadcrumb>
@@ -44,7 +46,6 @@ export default {
       const indexof = path.lastIndexOf('/')
       const targetPath = path.slice(0, indexof)
       this.getChildren(targetPath, this.routes)
-
       this.$route.matched.forEach(item => {
         this.breadList.push(item)
       })
@@ -88,7 +89,7 @@ export default {
     color: #333;
     font-weight: 600;
   }
-  .ant-breadcrumb {
+  .ant-breadcrumb-link, .ant-breadcrumb a {
     font-size: 16px;
     line-height: 21px;
     color: #666;

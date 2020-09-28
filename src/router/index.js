@@ -11,12 +11,6 @@ const routes = [
     isMenu: false
   },
   { path: '*', redirect: '/login', isMenu: false },
-  {
-    path: '/',
-    name: 'home',
-    redirect: '/home/index',
-    isMenu: false
-  },
   ...home,
   {
     path: '/404',

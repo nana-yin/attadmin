@@ -103,6 +103,8 @@ export default {
   background: #fff!important;
   flex: 0 0 210px!important;
   border-radius: 12px;
+  padding-top: 20px;
+  margin-bottom: 20px;
 }
 .menuSide {
   position: fixed;

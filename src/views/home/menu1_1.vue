@@ -1,13 +1,12 @@
 <template>
-  <div class="home">
-    子页面3
+  <div>
+    menu1_1
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'Subpage3',
+  name: 'Menu11',
   components: {
   }
 }

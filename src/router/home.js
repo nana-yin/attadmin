@@ -2,9 +2,9 @@ import layout from '@/layout'
 
 export default [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
-    redirect: '/home/index',
+    redirect: '/home/menu1',
     component: layout,
     isMenu: true,
     meta: {
@@ -13,35 +13,36 @@ export default [
     },
     children: [
       {
-        path: '/home/index',
-        name: 'subpage',
+        path: '/home/menu1',
+        redirect: '/home/menu1/menu1_1',
+        name: 'menu1',
         isMenu: true,
         component: () =>
-          import(/* webpackChunkName: "home" */ '@/views/home/index'),
+          import(/* webpackChunkName: "home" */ '@/views/home/menu1'),
         meta: {
           title: 'menu1',
           icon: 'pie-chart'
         },
         children: [
           {
-            path: '/home/index/subMenu',
-            name: 'Subpage3',
+            path: '/home/menu1/menu1_1',
+            name: 'menu1_1',
             isMenu: true,
             component: () =>
-              import(/* webpackChunkName: "home" */ '@/views/home/index3'),
+              import(/* webpackChunkName: "home" */ '@/views/home/menu1_1'),
             meta: {
-              title: 'menu1-subMenu',
+              title: 'menu1_1',
               icon: 'database'
             }
           }
         ]
       },
       {
-        path: '/home/index2',
-        name: 'subpage2',
+        path: '/home/menu2',
+        name: 'menu2',
         isMenu: true,
         component: () =>
-          import(/* webpackChunkName: "home" */ '@/views/home/index2'),
+          import(/* webpackChunkName: "home" */ '@/views/home/menu2'),
         meta: {
           title: 'menu2',
           icon: 'user'
