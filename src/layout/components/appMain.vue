@@ -5,16 +5,16 @@
 </template>
 <script>
 export default {
-  name: 'appMain',
+  name: 'AppMain',
   components: {
   },
   props: {},
-  data () {
+  data() {
     return {}
   },
   computed: {
   },
-  mounted () {},
+  mounted() {},
   methods: {}
 }
 </script>
