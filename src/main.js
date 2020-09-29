@@ -8,6 +8,7 @@ import 'ant-design-vue/dist/antd.css'
 Vue.use(Antd)
 Vue.config.productionTip = false
 
+// runtime
 new Vue({
   router,
   store,
