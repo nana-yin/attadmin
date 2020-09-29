@@ -34,6 +34,17 @@ export default [
               title: 'menu1_1',
               icon: 'database'
             }
+          },
+          {
+            path: '/home/menu1/menu1_2',
+            name: 'menu1_2',
+            isMenu: true,
+            component: () =>
+              import(/* webpackChunkName: "home" */ '@/views/home/menu1_2'),
+            meta: {
+              title: 'menu1_2',
+              icon: 'database'
+            }
           }
         ]
       },

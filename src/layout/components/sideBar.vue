@@ -2,8 +2,10 @@
   <a-layout-sider width="200" style="background: #fff">
     <a-menu
       mode="inline"
-      :default-selected-keys="['1']"
-      :style="{ height: '100%', borderRight: 0 }"
+      :inline-collapsed="false"
+      :inline-indent="20"
+      :default-selected-keys="[this.$route.path]"
+      :style="{ height: '100%' , borderRight: 0}"
     >
       <template v-for="item in menuRoutes">
         <a-menu-item v-if="!item.children" :key="item.path">
@@ -39,6 +41,7 @@ const SubMenu = {
   name: 'SubMenu',
   // must add isSubMenu: true
   isSubMenu: true,
+  inheritAttrs: false,
   props: {
     ...Menu.SubMenu.props,
     // Cannot overlap with properties within Menu.SubMenu.props
@@ -106,20 +109,6 @@ export default {
   padding-top: 20px;
   margin-bottom: 20px;
 }
-.menuSide {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 998;
-  background: #fff;
-  visibility: hidden;
-  .mask {
-    width: 100%;
-    height: 100%;
-  }
-}
 .sideBar {
   position: fixed;
   top: 0;
@@ -135,56 +124,5 @@ export default {
       display: none;
     }
   }
-  .parentMenu {
-    &-content {
-      &__title {
-        font-size: 14px;
-        line-height: 19px;
-        color: #333;
-      }
-    }
-    .childrenMenu {
-      margin-top: 10px;
-      margin-bottom: 10px;
-      color: #333333;
-      &-content {
-        margin: 10px 0;
-        &__title {
-          cursor: pointer;
-          margin-left: 8px;
-          &.active {
-            color: #3171f5;
-          }
-          &:hover {
-            color: #3171f5;
-          }
-        }
-      }
-    }
-  }
-  .validMenu {
-    margin-top: 41px;
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-
-  &.mobileHide {
-    position: fixed;
-    right: 0;
-    top: 60px;
-    z-index: 999;
-    background-color: #ffffff;
-    padding-top: 30px;
-    padding-left: 26px;
-    visibility: hidden;
-  }
-  &.menuShow {
-    visibility: inherit;
-  }
-}
-.menuShow {
-  visibility: inherit;
-  overflow: hidden;
 }
 </style>
